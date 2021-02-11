@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+
+import { decrement, increment, loadData } from "./redux/actions/auth";
 
 function App() {
+  const dispatch = useDispatch();
+  const counter = useSelector((state) => state.auth.counter);
+  const handleIncrement = () => {
+    dispatch(increment());
+  };
+  const handleDecrement = () => dispatch(decrement());
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>Counter: {counter}</div>
+      <div>
+        <button onClick={handleIncrement}>Increment</button>
+      </div>
+      <div>
+        <button onClick={handleDecrement}>Decrement</button>
+      </div>
+      <div>
+        <button onClick={() => dispatch(loadData())}>Load data</button>
+      </div>
     </div>
   );
 }
